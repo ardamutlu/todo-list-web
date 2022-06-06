@@ -1,8 +1,9 @@
 import path from "path";
 import { Configuration } from "webpack";
-import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
+import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
-import 'webpack-dev-server';
+import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
+import "webpack-dev-server";
 
 const config: Configuration = {
   mode: "development",
@@ -16,10 +17,15 @@ const config: Configuration = {
           loader: "babel-loader",
         },
       },
+      {
+        test: /\.(sa|sc|c)ss$/,
+        use: ["style-loader", "css-loader", "sass-loader"],
+      },
     ],
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
+    plugins: [new TsconfigPathsPlugin({ configFile: "./tsconfig.json" })],
   },
   output: {
     path: path.resolve(__dirname, "build"),

@@ -1,23 +1,21 @@
 import React from "react";
 import styled from "styled-components";
-import Grid from "@mui/material/Grid";
+import { Col, Row } from "react-bootstrap";
 
 const StyledHeader = styled.header`
   border-bottom: 1px solid #eeeeee;
 `;
 
-const Logo = styled.div`
-  padding: 10px;
-`;
+const Logo = styled.div``;
 
 const Header: React.FC = () => {
   return (
-    <StyledHeader>
-      <Grid container spacing={2}>
-        <Grid item xs={8}>
+    <StyledHeader className="p-3">
+      <Row>
+        <Col>
           <Logo>Logo</Logo>
-        </Grid>
-      </Grid>
+        </Col>
+      </Row>
     </StyledHeader>
   );
 };

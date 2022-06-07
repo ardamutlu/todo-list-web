@@ -19,7 +19,7 @@ type SelectProps = React.DetailedHTMLProps<
 const Select = forwardRef<HTMLSelectElement, SelectProps>(
   ({ options, label, isInvalid, feedback, ...props }, ref) => (
     <Form.Group className="position-relative" controlId={`form.${props.name}`}>
-      <Form.Label>{label}</Form.Label>
+      <Form.Label className="d-block text-start">{label}</Form.Label>
       <Form.Select ref={ref} {...props} isInvalid={isInvalid}>
         {options.map(({ label, value }, index) => (
           <option key={index} value={value}>

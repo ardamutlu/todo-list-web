@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Layout from "@components/Layout";
+import Layout from "@components/layout/Layout";
 
-const HomePage = React.lazy(() => import("../pages/Home"));
-const NoMatchPage = React.lazy(() => import("../pages/NoMatch"));
+const HomePage = React.lazy(() => import("../views/Home.page"));
+const NoMatchPage = React.lazy(() => import("../views/NoMatch.page"));
 
 const Router: React.FC = () => {
   return (

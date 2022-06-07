@@ -19,6 +19,8 @@
     "paths": {
       "@components/*": ["./src/components/*"],
       "@feature/*": ["./src/feature/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@services/*": ["./src/services/*"],
     }
   },
   "include": ["src/**/*"]

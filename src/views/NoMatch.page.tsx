@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const NoMatch: React.FC = () => {
+const NoMatchPage: React.FC = () => {
   return (
     <div>
       <h2>Nothing to see here!</h2>
@@ -12,4 +12,4 @@ const NoMatch: React.FC = () => {
   );
 };
 
-export default NoMatch;
+export default NoMatchPage;

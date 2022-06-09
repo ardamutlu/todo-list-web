@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Input from "@components/forms/Input";
@@ -11,10 +11,16 @@ import {
   ValidateSchema,
 } from "@feature/Jobs/constants";
 import { uid } from "@utils/helpers";
-import { actions } from "../../store/jobs/jobs";
+import { StoreState } from "../../store/constants";
+import { actions as jobActions } from "../../store/jobs/jobs";
+import { actions as getPrioritiesActions } from "../../store/priorities/get.priorities";
 
 const JobForm: React.FC = () => {
   const dispatch = useDispatch();
+  const { priorities } = useSelector<StoreState>(
+    ({ priorities }) => ({ priorities }),
+    shallowEqual
+  ) as StoreState;
   const {
     register,
     handleSubmit,
@@ -27,10 +33,25 @@ const JobForm: React.FC = () => {
 
   useEffect(() => {
     reset({ ...DEFAULT_VALUES });
+    dispatch(getPrioritiesActions.getPrioritiesRequest());
+    return () => {
+      dispatch(getPrioritiesActions.getPrioritiesReset());
+    };
   }, []);
 
+  const prioritiesOptions = useMemo(
+    () =>
+      priorities.entity && priorities.entity.length > 0
+        ? priorities.entity.map((entity) => ({
+            label: entity.name,
+            value: entity.name,
+          }))
+        : [],
+    [priorities.entity]
+  );
+
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    dispatch(actions.createJob([data]));
+    dispatch(jobActions.createJob([data]));
     reset({ ...DEFAULT_VALUES, id: uid() });
   };
 
@@ -50,11 +71,7 @@ const JobForm: React.FC = () => {
           <Select
             {...register("priority")}
             label="Job Priority"
-            options={[
-              { label: "Urgent", value: "Urgent" },
-              { label: "Regular", value: "Regular" },
-              { label: "Trivial", value: "Trivial" },
-            ]}
+            options={prioritiesOptions}
             isInvalid={!!errors.priority?.message}
             feedback={errors.priority?.message}
           />

@@ -7,7 +7,14 @@ export const setupAxios = (axios: AxiosStatic) => {
    * Response Interceptor
    */
   axios.interceptors.response.use(
-    (response: AxiosResponse) => response,
+    (response: AxiosResponse) => {
+      const { status, data } = response;
+      switch (status) {
+        case 200:
+          return { response: data };
+      }
+      return { response };
+    },
     (e: AxiosError) => {
       return Promise.reject(e);
     }

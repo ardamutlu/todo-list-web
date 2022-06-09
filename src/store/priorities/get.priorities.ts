@@ -1,6 +1,6 @@
 import axios from "axios";
-import { takeLatest, put, call, delay } from "redux-saga/effects";
-import { InitialState } from "../constants";
+import { takeLeading, put, call, delay } from "redux-saga/effects";
+import { InitialState, Priorities } from "../constants";
 import {
   GetPrioritiesFailurePayload,
   GetPrioritiesSuccessPayload,
@@ -14,7 +14,7 @@ export const actionTypes = {
   GET_PRIORITIES_RESET: "[Priorities Api] Get Priorities Reset",
 };
 
-const initialState: InitialState = {
+const initialState: InitialState<Priorities> = {
   entity: [],
   loading: false,
   error: null,
@@ -70,11 +70,14 @@ export const actions = {
 };
 
 export function* saga() {
-  yield takeLatest(
+  yield takeLeading(
     actionTypes.GET_PRIORITIES_REQUEST,
     function* GetPrioritiesSaga() {
       try {
-        const { response, error } = yield call(axios.get, "priorities");
+        const { response, error } = yield call(
+          axios.get,
+          "http://localhost:3000/priorities"
+        );
 
         // yield delay(5000);
 
@@ -84,7 +87,7 @@ export function* saga() {
           return;
         }
 
-        yield put(actions.getPrioritiesSuccess(response));
+        yield put(actions.getPrioritiesSuccess(response.data));
       } catch (e) {
         yield put(actions.getPrioritiesFailure({ error: e }));
       }

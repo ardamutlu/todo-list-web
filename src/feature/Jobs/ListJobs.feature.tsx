@@ -1,34 +1,38 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Badge, Button, ButtonGroup, Card } from "react-bootstrap";
 import Title from "@components/Title";
 import DynamicTable from "@components/Table";
 import { priorityConstants } from "@utils/constants/priority.constants";
 import { actions } from "../../store/jobs/jobs";
 import DeleteModal from "@feature/Jobs/DeleteModal";
-import UpdateModal from "@feature/Jobs/UpdateModal";
+import FilterTable from "@feature/Jobs/FilterTable";
+import { StoreState } from "../../store/constants";
 import { JobState } from "../../store/jobs/types";
 
 const ListJobs: React.FC = () => {
   const dispatch = useDispatch();
-  const { jobs }: any = useSelector<any>(({ jobs }) => ({ jobs }));
+  const { jobs } = useSelector<StoreState>(
+    ({ jobs }) => ({
+      jobs,
+    }),
+    shallowEqual
+  ) as StoreState;
+  const [data, setData] = useState<JobState[]>(jobs);
   const [deleteModal, setDeleteModal] = useState<{ show: boolean; id: string }>(
     {
       show: false,
       id: "",
     }
   );
-  const [updateModal, setUpdateModal] = useState<{
-    show: boolean;
-    data: JobState | null;
-  }>({
-    show: false,
-    data: null,
-  });
 
   useEffect(() => {
     dispatch(actions.getJobs());
   }, []);
+
+  useEffect(() => {
+    setData(jobs);
+  }, [jobs]);
 
   const columns = useMemo(
     () => [
@@ -56,17 +60,6 @@ const ListJobs: React.FC = () => {
           return (
             <div className="text-end">
               <ButtonGroup size="sm" aria-label="crud buttons">
-                <Button
-                  variant="secondary"
-                  onClick={() =>
-                    setUpdateModal((prevState) => ({
-                      ...prevState,
-                      ...{ show: true, data: record },
-                    }))
-                  }
-                >
-                  Düzenle
-                </Button>
                 <Button
                   variant="secondary"
                   onClick={() =>
@@ -104,7 +97,8 @@ const ListJobs: React.FC = () => {
           <Title className="mb-0">Job List</Title>
         </Card.Header>
         <Card.Body>
-          <DynamicTable columns={columns} data={jobs.entity} config={config} />
+          <FilterTable data={jobs} setData={setData} />
+          <DynamicTable columns={columns} data={data} config={config} />
         </Card.Body>
       </Card>
       <DeleteModal
@@ -117,19 +111,6 @@ const ListJobs: React.FC = () => {
           setDeleteModal((prevState) => ({
             ...prevState,
             ...{ show: false, id: "" },
-          }));
-        }}
-      />
-      <UpdateModal
-        show={updateModal.show}
-        data={updateModal.data}
-        onHide={() =>
-          setUpdateModal((prevState) => ({ ...prevState, ...{ show: false } }))
-        }
-        onClick={() => {
-          setUpdateModal((prevState) => ({
-            ...prevState,
-            ...{ show: false, data: null },
           }));
         }}
       />

@@ -96,7 +96,9 @@ const DynamicTable = <T,>({ data, columns, config }: Props<T>) => {
       <tr key={index}>
         {columns.map((entity, index: number) => (
           <td key={index}>
-            {entity.render ? entity.render(payload) : payload[entity.selector]}
+            {entity.render
+              ? entity.render(payload)
+              : (payload[entity.selector as keyof T] as any)}
           </td>
         ))}
       </tr>

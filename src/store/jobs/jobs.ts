@@ -8,32 +8,26 @@ export const actionTypes = {
   RESET_JOBS: "[Jobs Api] Reset Jobs",
 };
 
-const initialState: { entity: JobState[] } = {
-  entity: [],
-};
+const initialState: JobState[] = [];
 
 export const reducer = (state = initialState, action: JobActions | any) => {
   switch (action.type) {
     case actionTypes.GET_JOBS:
       const items = localStorage.getItem("jobs") || "[]";
-      return { ...state, entity: JSON.parse(items) };
+      return JSON.parse(items);
 
     case actionTypes.CREATE_JOB:
-      const payload = state.entity.concat(action.payload);
+      const payload = state.concat(action.payload);
       localStorage.setItem("jobs", JSON.stringify(payload));
-      return { ...state, entity: payload };
+      return payload;
 
     case actionTypes.DELETE_JOB:
-      const newState = state.entity.filter((d) => d.id !== action.payload);
+      const newState = state.filter((d) => d.id !== action.payload);
       localStorage.setItem("jobs", JSON.stringify(newState));
-      return { ...state, entity: newState };
+      return newState;
 
     case actionTypes.UPDATE_JOB:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-      };
+      return action.payload;
 
     case "RESET_STORE":
     case actionTypes.RESET_JOBS:

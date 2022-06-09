@@ -1,5 +1,5 @@
-import { uid } from "@utils/helpers/uid.helpers";
 import * as yup from "yup";
+import { uid } from "@utils/helpers";
 
 export type FormValues = {
   id: string;

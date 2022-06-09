@@ -7,7 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 import store from "./store/store";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "remixicon/fonts/remixicon.css";
-import { setupAxios } from "@utils/helpers/interceptor.helper";
+import { setupAxios } from "@utils/helpers";
 
 setupAxios(axios);
 

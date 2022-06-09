@@ -10,7 +10,7 @@ const CreateJob: React.FC = () => {
         <Title className="mb-0">Create New Job</Title>
       </Card.Header>
       <Card.Body>
-        <JobForm action="create" />
+        <JobForm />
       </Card.Body>
     </Card>
   );

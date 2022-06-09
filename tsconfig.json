@@ -21,7 +21,11 @@
       "@feature/*": ["./src/feature/*"],
       "@utils/*": ["./src/utils/*"],
       "@services/*": ["./src/services/*"],
-    }
+    },
+    "typeRoots": [
+      "src/types",
+      "node_modules/@types"
+    ],
   },
   "include": ["src/**/*"]
 }

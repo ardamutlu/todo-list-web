@@ -14,7 +14,7 @@ export const actionTypes = {
   GET_PRIORITIES_RESET: "[Priorities Api] Get Priorities Reset",
 };
 
-const initialState: InitialState<Priorities> = {
+export const initialState: InitialState<Priorities> = {
   entity: [],
   loading: false,
   error: null,

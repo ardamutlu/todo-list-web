@@ -2,7 +2,7 @@ import { JobState } from "./jobs/types";
 
 export interface Priorities {
   name: string;
-  value: string;
+  label: string;
 }
 
 export interface InitialState<T> {

@@ -16,16 +16,15 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
-    "paths": {
-      "@components/*": ["./src/components/*"],
-      "@feature/*": ["./src/feature/*"],
-      "@utils/*": ["./src/utils/*"],
-      "@services/*": ["./src/services/*"],
-    },
     "typeRoots": [
       "src/types",
       "node_modules/@types"
     ],
   },
+  "exclude": [
+    "node_modules",
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
+  ],
   "include": ["src/**/*"]
 }

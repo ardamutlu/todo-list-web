@@ -7,9 +7,9 @@ import React, {
   useTransition,
 } from "react";
 import { Col, Row } from "react-bootstrap";
-import Input from "@components/forms/Input";
-import Select from "@components/forms/Select";
-import { latinize } from "@utils/helpers";
+import Input from "../../components/forms/Input";
+import Select from "../../components/forms/Select";
+import { latinize } from "../../utils/helpers";
 import { JobState } from "../../store/jobs/types";
 
 interface Props {

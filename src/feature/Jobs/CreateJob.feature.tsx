@@ -1,7 +1,7 @@
 import React from "react";
 import { Card } from "react-bootstrap";
-import Title from "@components/Title";
-import JobForm from "@feature/Jobs/Form";
+import Title from "../../components/Title";
+import JobForm from "../../feature/Jobs/Form";
 
 const CreateJob: React.FC = () => {
   return (

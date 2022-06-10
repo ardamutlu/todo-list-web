@@ -29,7 +29,11 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
         ))}
       </Form.Select>
       {feedback && (
-        <Form.Control.Feedback type="invalid" tooltip>
+        <Form.Control.Feedback
+          aria-label={`form.${props.name}`}
+          type="invalid"
+          tooltip
+        >
           {feedback}
         </Form.Control.Feedback>
       )}

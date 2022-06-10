@@ -8,7 +8,7 @@ export const actionTypes = {
   RESET_JOBS: "[Jobs Api] Reset Jobs",
 };
 
-const initialState: JobState[] = [];
+export const initialState: JobState[] = [];
 
 export const reducer = (state = initialState, action: JobActions | any) => {
   switch (action.type) {

@@ -1,20 +1,20 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Badge, Button, ButtonGroup, Card } from "react-bootstrap";
-import Title from "@components/Title";
-import DynamicTable from "@components/Table";
-import { priorityConstants } from "@utils/constants/priority.constants";
+import Title from "../../components/Title";
+import DynamicTable from "../../components/Table";
 import { actions } from "../../store/jobs/jobs";
-import DeleteModal from "@feature/Jobs/DeleteModal";
-import FilterTable from "@feature/Jobs/FilterTable";
-import { StoreState } from "../../store/constants";
+import DeleteModal from "../../feature/Jobs/DeleteModal";
+import FilterTable from "../../feature/Jobs/FilterTable";
+import { Priorities, StoreState } from "../../store/constants";
 import { JobState } from "../../store/jobs/types";
 
 const ListJobs: React.FC = () => {
   const dispatch = useDispatch();
-  const { jobs } = useSelector<StoreState>(
-    ({ jobs }) => ({
+  const { jobs, priorities } = useSelector<StoreState>(
+    ({ jobs, priorities }) => ({
       jobs,
+      priorities,
     }),
     shallowEqual
   ) as StoreState;
@@ -45,18 +45,18 @@ const ListJobs: React.FC = () => {
         selector: "priority",
         label: "Priority",
         sortable: true,
-        render: (record: any) => (
-          <Badge bg={priorityConstants[record.priority]}>
-            {record.priority}
-          </Badge>
-        ),
+        render: ({ priority }: any) => {
+          const filteredPriority: Priorities | undefined =
+            priorities.entity.find((entity) => entity.name === priority);
+          return <Badge bg={filteredPriority?.label}>{priority}</Badge>;
+        },
       },
       {
         selector: "action",
         label: "Actions",
         width: "100px",
         className: "text-center",
-        render: (record: any) => {
+        render: ({ id }: any) => {
           return (
             <div className="text-end">
               <ButtonGroup size="sm" aria-label="crud buttons">
@@ -65,7 +65,7 @@ const ListJobs: React.FC = () => {
                   onClick={() =>
                     setDeleteModal((prevState) => ({
                       ...prevState,
-                      ...{ show: true, id: record.id },
+                      ...{ show: true, id },
                     }))
                   }
                 >

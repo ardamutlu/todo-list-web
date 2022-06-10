@@ -16,7 +16,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       {label && <Form.Label className="d-block text-start">{label}</Form.Label>}
       <Form.Control ref={ref} {...props} isInvalid={isInvalid} />
       {feedback && (
-        <Form.Control.Feedback type="invalid" tooltip>
+        <Form.Control.Feedback
+          aria-label={`form.${props.name}`}
+          type="invalid"
+          tooltip
+        >
           {feedback}
         </Form.Control.Feedback>
       )}

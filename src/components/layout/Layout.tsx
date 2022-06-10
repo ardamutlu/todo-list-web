@@ -1,9 +1,9 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import { Col, Container, Row } from "react-bootstrap";
-import Header from "@components/layout/Header";
-import Footer from "@components/layout/Footer";
-import Content from "@components/layout/Content";
+import Header from "./Header";
+import Content from "./Content";
+import Footer from "./Footer";
 
 const Layout: React.FC = () => {
   return (

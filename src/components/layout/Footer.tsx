@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Button, Col, Row } from "react-bootstrap";
-import Code from "@components/Code";
+import Code from "../Code";
 
 const StyledFooter = styled.footer`
   background-color: #eeeeee;

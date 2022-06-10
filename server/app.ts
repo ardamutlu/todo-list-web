@@ -9,15 +9,15 @@ app.use(bodyParser.json());
 const priorities = [
   {
     name: "Urgent",
-    value: "danger",
+    label: "danger",
   },
   {
     name: "Regular",
-    value: "warning",
+    label: "warning",
   },
   {
     name: "Trivial",
-    value: "primary",
+    label: "primary",
   },
 ];
 
